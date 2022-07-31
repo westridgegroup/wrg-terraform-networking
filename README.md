@@ -8,15 +8,16 @@ Creates two VNETS connectived via a VPN
         - GatewaySubnet
         - Secondary Subnet
     - Virutal Network Gateway
-    - Virtual Network Gateway Connection
-    - Public IP for Virtual Network Gateway (OnPrem to Hub)
+    - Connection (OnPrem to Hub)
+    - Public IP for Virtual Network Gateway 
 
 - Hub Resource Group
     - Hub VNET
         - GatewaySubnet
         - Secondary Subnet
     - Virutal Network Gateway
-    - Virtual Network Gateway Connection (Hub to OnPrem)
+    - Connection (Hub to OnPrem)
+    - Public IP for Virtual Network Gateway
 
 ## Execution
 #![Simple Test Resoruce Groups](../rg.png)
