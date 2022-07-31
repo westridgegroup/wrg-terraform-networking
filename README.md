@@ -3,8 +3,8 @@
 Creates two VNETS connectived via a VPN
 
 ## Resources Created
-* OnPrem
-*     OnPrem VNET
+- OnPrem
+-     OnPrem VNET
 *         GatewaySubnet
 *         Secondary Subnet
 *     Virutal Network Gateway
