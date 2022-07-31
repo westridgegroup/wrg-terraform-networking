@@ -18,11 +18,11 @@ Creates two VNETS connected via a VPN
     - Hub VNET
         - GatewaySubnet
         - DNS Subnet
-        - ToDo: VM Subnet
+        - VM Subnet
     - Virutal Network Gateway
     - Connection (Hub to OnPrem)
     - Public IP for Virtual Network Gateway
-    - ToDo: Linux VM in Secondary Subnet
+    - Linux VM in Secondary Subnet
     - ToDo: Public IP for Linux VM
     - ToDo: NSG for Linux VM
     - ToDo: Linux DNS Server
