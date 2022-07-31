@@ -62,7 +62,7 @@ resource "azurerm_virtual_network_gateway_connection" "hub_to_onprem" {
 
   type                            = "Vnet2Vnet"
   virtual_network_gateway_id      = azurerm_virtual_network_gateway.hub.id
-  peer_virtual_network_gateway_id = azurerm_virtual_network_gateway.hub.id
+  peer_virtual_network_gateway_id = azurerm_virtual_network_gateway.onprem.id
 
   shared_key = "4-v3ry-53cr37-1p53c-5h4r3d-k3y"
 }
@@ -101,7 +101,7 @@ resource "azurerm_subnet" "onprem_gateway" {
 resource "azurerm_public_ip" "onprem" {
   name                = "${var.rg_prefix}-hub-ip"
   location            = azurerm_resource_group.onprem.location
-  resource_group_name = azurerm_resource_group.onprem.name
+  resource_group_name = azurerm_resource_group.hub.name
 
   allocation_method = "Dynamic"
 }
