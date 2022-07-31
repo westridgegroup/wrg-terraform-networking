@@ -76,16 +76,11 @@ resource "azurerm_resource_group" "onprem" {
 }
 
 resource "azurerm_virtual_network" "onprem" {
-  name                = "${var.rg_prefix}-vnet-hub"
+  name                = "${var.rg_prefix}-vnet-onprem"
   location            = azurerm_resource_group.onprem.location
   resource_group_name = azurerm_resource_group.onprem.name
   address_space       = ["10.1.0.0/16"]
   #dns_servers         = ["10.0.0.4", "10.0.0.5"]
-
-  subnet {
-    name           = "subnet2"
-    address_prefix = "10.1.2.0/24"
-  }
 
   tags=local.tags
 }
@@ -97,11 +92,24 @@ resource "azurerm_subnet" "onprem_gateway" {
   address_prefixes     = ["10.1.1.0/24"]
 }
 
+resource "azurerm_subnet" "onprem_DNS" {
+  name                 = "onprem-dns"
+  resource_group_name  = azurerm_resource_group.onprem.name
+  virtual_network_name = azurerm_virtual_network.onprem.name
+  address_prefixes     = ["10.1.2.0/24"]
+}
+
+resource "azurerm_subnet" "onprem_VM" {
+  name                 = "onprem-vm"
+  resource_group_name  = azurerm_resource_group.onprem.name
+  virtual_network_name = azurerm_virtual_network.onprem.name
+  address_prefixes     = ["10.1.3.0/24"]
+}
 
 resource "azurerm_public_ip" "onprem" {
-  name                = "${var.rg_prefix}-hub-ip"
+  name                = "${var.rg_prefix}-onprem-ip"
   location            = azurerm_resource_group.onprem.location
-  resource_group_name = azurerm_resource_group.hub.name
+  resource_group_name = azurerm_resource_group.onprem.name
 
   allocation_method = "Dynamic"
 }
@@ -129,7 +137,7 @@ resource "azurerm_virtual_network_gateway_connection" "onprem_to_hub" {
 
   type                            = "Vnet2Vnet"
   virtual_network_gateway_id      = azurerm_virtual_network_gateway.onprem.id
-  peer_virtual_network_gateway_id = azurerm_virtual_network_gateway.onprem.id
+  peer_virtual_network_gateway_id = azurerm_virtual_network_gateway.hub.id
 
   shared_key = "4-v3ry-53cr37-1p53c-5h4r3d-k3y"
 }
