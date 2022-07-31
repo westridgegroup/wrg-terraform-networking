@@ -3,16 +3,21 @@
 Creates two VNETS connectived via a VPN
 
 ## Resources Created
-- OnPrem
+- OnPrem Resource Group
     - OnPrem VNET
-    - GatewaySubnet
+        - GatewaySubnet
         - Secondary Subnet
     - Virutal Network Gateway
-    - Public IP for Virtual Network Gateway
-- Hub
+    - Virtual Network Gateway Connection
+    - Public IP for Virtual Network Gateway (OnPrem to Hub)
+
+- Hub Resource Group
     - Hub VNET
         - GatewaySubnet
         - Secondary Subnet
+    - Virutal Network Gateway
+    - Virtual Network Gateway Connection (Hub to OnPrem)
+
 ## Execution
 #![Simple Test Resoruce Groups](../rg.png)
 
