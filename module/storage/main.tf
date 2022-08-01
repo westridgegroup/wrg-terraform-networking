@@ -44,7 +44,7 @@ resource "azurerm_private_endpoint" "hub" {
     name                           = "example-privateserviceconnection"
     private_connection_resource_id = azurerm_storage_account.hub.id
     is_manual_connection           = false
-    subresource_names = ["blob"]
+    subresource_names              = ["blob"]
   }
 }
 
