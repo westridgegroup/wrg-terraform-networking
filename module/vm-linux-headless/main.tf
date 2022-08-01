@@ -18,7 +18,7 @@ resource "azurerm_key_vault" "vm_kv" {
   tenant_id                   = data.azurerm_client_config.current.tenant_id
   sku_name                    = "premium"
   enabled_for_disk_encryption = true
-  purge_protection_enabled    = false
+  purge_protection_enabled    = true
   tags                        = local.main_tags
 }
 
@@ -60,11 +60,7 @@ resource "azurerm_key_vault_access_policy" "example-disk" {
   tenant_id = azurerm_disk_encryption_set.vm.identity.0.tenant_id
   object_id = azurerm_disk_encryption_set.vm.identity.0.principal_id
 
-  key_permissions = [
-    "Get",
-    "WrapKey",
-    "UnwrapKey"
-  ]
+  key_permissions = ["Get","WrapKey","UnwrapKey","Delete","Purge","Recover"]
 }
 
 resource "azurerm_key_vault_access_policy" "example-user" {
@@ -73,11 +69,7 @@ resource "azurerm_key_vault_access_policy" "example-user" {
   tenant_id = data.azurerm_client_config.current.tenant_id
   object_id = data.azurerm_client_config.current.object_id
 
-  key_permissions = [
-    "Get",
-    "Create",
-    "Delete"
-  ]
+  key_permissions = ["Get","Create","Delete","WrapKey","UnwrapKey","Purge","Recover"]
 }
 
 resource "random_pet" "server" {

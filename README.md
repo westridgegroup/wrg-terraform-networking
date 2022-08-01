@@ -11,7 +11,7 @@ Creates two VNETS connected via a VPN
     - Connection (OnPrem to Hub)
     - Public IP for Virtual Network Gateway 
     - ToDo: Azure Firewall for DNS
-    - ToDo: SQL Server
+    - ToDo: Blob Storage
     - ToDo: Private End Point
     - ToDo: Private DNS (for private end point)
 - Hub Resource Group
