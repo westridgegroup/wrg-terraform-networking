@@ -20,26 +20,19 @@ resource "azurerm_key_vault" "vm_kv" {
   enabled_for_disk_encryption = true
   purge_protection_enabled    = true
   tags                        = local.main_tags
+  soft_delete_retention_days = 7
 }
 
 resource "azurerm_key_vault_key" "vm_kv" {
-  name         = "des-example-key"
+  name         = "des-key"
   key_vault_id = azurerm_key_vault.vm_kv.id
   key_type     = "RSA"
   key_size     = 2048
-
   depends_on = [
-    azurerm_key_vault_access_policy.example-user
+    azurerm_key_vault_access_policy.user
   ]
 
-  key_opts = [
-    "decrypt",
-    "encrypt",
-    "sign",
-    "unwrapKey",
-    "verify",
-    "wrapKey",
-  ]
+  key_opts = ["decrypt","encrypt","sign","unwrapKey","verify","wrapKey"]
 }
 
 resource "azurerm_disk_encryption_set" "vm" {
@@ -54,7 +47,7 @@ resource "azurerm_disk_encryption_set" "vm" {
   tags = local.main_tags
 }
 
-resource "azurerm_key_vault_access_policy" "example-disk" {
+resource "azurerm_key_vault_access_policy" "disk" {
   key_vault_id = azurerm_key_vault.vm_kv.id
 
   tenant_id = azurerm_disk_encryption_set.vm.identity.0.tenant_id
@@ -63,7 +56,7 @@ resource "azurerm_key_vault_access_policy" "example-disk" {
   key_permissions = ["Get","WrapKey","UnwrapKey","Delete","Purge","Recover"]
 }
 
-resource "azurerm_key_vault_access_policy" "example-user" {
+resource "azurerm_key_vault_access_policy" "user" {
   key_vault_id = azurerm_key_vault.vm_kv.id
 
   tenant_id = data.azurerm_client_config.current.tenant_id
