@@ -30,7 +30,7 @@ resource "azurerm_subnet" "hub_gateway" {
   virtual_network_name = azurerm_virtual_network.hub.name
   address_prefixes     = ["10.0.1.0/24"]
 }
-
+/*
 resource "azurerm_public_ip" "hub" {
   name                = "${var.rg_prefix}-hub-ip"
   location            = azurerm_resource_group.hub.location
@@ -66,7 +66,7 @@ resource "azurerm_virtual_network_gateway_connection" "hub_to_onprem" {
 
   shared_key = "4-v3ry-53cr37-1p53c-5h4r3d-k3y"
 }
-
+*/
 
 #"On-Prem" Vnet
 resource "azurerm_resource_group" "onprem" {
@@ -105,7 +105,7 @@ resource "azurerm_subnet" "onprem_VM" {
   virtual_network_name = azurerm_virtual_network.onprem.name
   address_prefixes     = ["10.1.3.0/24"]
 }
-
+/*
 resource "azurerm_public_ip" "onprem" {
   name                = "${var.rg_prefix}-onprem-ip"
   location            = azurerm_resource_group.onprem.location
@@ -141,3 +141,4 @@ resource "azurerm_virtual_network_gateway_connection" "onprem_to_hub" {
 
   shared_key = "4-v3ry-53cr37-1p53c-5h4r3d-k3y"
 }
+*/

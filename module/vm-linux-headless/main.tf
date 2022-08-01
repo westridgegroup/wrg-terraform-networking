@@ -18,7 +18,7 @@ resource "azurerm_key_vault" "vm_kv" {
   tenant_id                   = data.azurerm_client_config.current.tenant_id
   sku_name                    = "premium"
   enabled_for_disk_encryption = true
-  purge_protection_enabled    = true
+  purge_protection_enabled    = true #required for disk encryption 
   tags                        = local.main_tags
   soft_delete_retention_days = 7
 }
@@ -46,6 +46,7 @@ resource "azurerm_disk_encryption_set" "vm" {
   }
   tags = local.main_tags
 }
+
 
 resource "azurerm_key_vault_access_policy" "disk" {
   key_vault_id = azurerm_key_vault.vm_kv.id
