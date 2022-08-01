@@ -23,8 +23,8 @@ Creates two VNETS connected via a VPN
     - Connection (Hub to OnPrem)
     - Public IP for Virtual Network Gateway
     - Linux VM in Secondary Subnet
-    - ToDo: Public IP for Linux VM
-    - ToDo: NSG for Linux VM
+    - Public IP for Linux VM
+    - NSG for Linux VM
     - ToDo: Linux DNS Server
     - ToDO NSG for Linux DNS Server
 
