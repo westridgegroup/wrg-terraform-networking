@@ -1,5 +1,5 @@
 locals {
-    tags = merge(var.tags, var.env_tags)
+  tags = merge(var.tags, var.env_tags)
 }
 
 # Hub vnet
@@ -21,7 +21,7 @@ resource "azurerm_virtual_network" "hub" {
     address_prefix = "10.0.2.0/24"
   }
 
-  tags=local.tags
+  tags = local.tags
 }
 
 resource "azurerm_subnet" "hub_gateway" {
@@ -82,7 +82,7 @@ resource "azurerm_virtual_network" "onprem" {
   address_space       = ["10.1.0.0/16"]
   #dns_servers         = ["10.0.0.4", "10.0.0.5"]
 
-  tags=local.tags
+  tags = local.tags
 }
 
 resource "azurerm_subnet" "onprem_gateway" {

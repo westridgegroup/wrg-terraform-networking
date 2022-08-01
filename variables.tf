@@ -33,33 +33,33 @@ variable "password" {
 
 # Standard Tags
 variable "rg_prefix" {
-  default = ""
+  default     = ""
   description = "The generic prefix for resoruces in this project"
-  type =string
+  type        = string
 }
 
 variable "tags" {
-  default =  {
+  default = {
     project = "example"
   }
-  description ="The generic tags for this project that go on all resources"
-  type = map(string)
+  description = "The generic tags for this project that go on all resources"
+  type        = map(string)
 }
 
 variable "env_tags" {
-  default = {}
+  default     = {}
   description = "Environment specific tags"
-  type = map(string)
+  type        = map(string)
 }
 
 variable "state_container_name" {
-  default = ""
+  default     = ""
   description = "Used by the boostrap shell script but provide here incase it is needed, in the output by default"
-  type = string
+  type        = string
 }
 
 variable "state_key" {
-  default = ""
+  default     = ""
   description = "Used by the bootstrap shell script but provided here incase it is needed, in the output by default"
-  type = string
+  type        = string
 }

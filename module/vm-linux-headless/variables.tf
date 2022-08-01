@@ -4,8 +4,8 @@ variable "subnet_id" {
 }
 
 variable "tags" {
-    type = map
-    description = "Tags to be added to the resources"
+  type        = map(any)
+  description = "Tags to be added to the resources"
 }
 
 variable "allowed_list_ips" {

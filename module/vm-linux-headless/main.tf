@@ -6,7 +6,7 @@ data "http" "icanhazip" {
 data "azurerm_client_config" "current" {}
 
 locals {
-  main_tags        = var.tags 
+  main_tags        = var.tags
   allowed_list_ips = split(",", coalesce(var.allowed_list_ips, chomp(data.http.icanhazip.body)))
 }
 
@@ -20,7 +20,7 @@ resource "azurerm_key_vault" "vm_kv" {
   enabled_for_disk_encryption = true
   purge_protection_enabled    = true #required for disk encryption 
   tags                        = local.main_tags
-  soft_delete_retention_days = 7
+  soft_delete_retention_days  = 7
 }
 
 resource "azurerm_key_vault_key" "vm_kv" {
@@ -32,7 +32,7 @@ resource "azurerm_key_vault_key" "vm_kv" {
     azurerm_key_vault_access_policy.user
   ]
 
-  key_opts = ["decrypt","encrypt","sign","unwrapKey","verify","wrapKey"]
+  key_opts = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
 }
 
 resource "azurerm_disk_encryption_set" "vm" {
@@ -54,7 +54,7 @@ resource "azurerm_key_vault_access_policy" "disk" {
   tenant_id = azurerm_disk_encryption_set.vm.identity.0.tenant_id
   object_id = azurerm_disk_encryption_set.vm.identity.0.principal_id
 
-  key_permissions = ["Get","WrapKey","UnwrapKey","Delete","Purge","Recover"]
+  key_permissions = ["Get", "WrapKey", "UnwrapKey", "Delete", "Purge", "Recover"]
 }
 
 resource "azurerm_key_vault_access_policy" "user" {
@@ -63,7 +63,7 @@ resource "azurerm_key_vault_access_policy" "user" {
   tenant_id = data.azurerm_client_config.current.tenant_id
   object_id = data.azurerm_client_config.current.object_id
 
-  key_permissions = ["Get","Create","Delete","WrapKey","UnwrapKey","Purge","Recover"]
+  key_permissions = ["Get", "Create", "Delete", "WrapKey", "UnwrapKey", "Purge", "Recover"]
 }
 
 resource "random_pet" "server" {
