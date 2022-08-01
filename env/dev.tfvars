@@ -10,7 +10,7 @@ state_key            = "terraform.tfstate.dev.wrg-terraform-networking"
 ##################################################
 machine_number = "001"
 
-rg_prefix = "dev"
+prefix = "secnetwork"
 env_tags = {
   env      = "development",
   solution = "wrg-terraform-networking"

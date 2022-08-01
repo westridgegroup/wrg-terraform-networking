@@ -4,22 +4,17 @@ locals {
 
 # Hub vnet
 resource "azurerm_resource_group" "hub" {
-  name     = "${var.rg_prefix}-vnet-hub"
+  name     = "${var.prefix}-vnet-hub"
   location = "eastus2"
   tags     = local.tags
 }
 
 resource "azurerm_virtual_network" "hub" {
-  name                = "${var.rg_prefix}-vnet-hub"
+  name                = "${var.prefix}-vnet-hub"
   location            = azurerm_resource_group.hub.location
   resource_group_name = azurerm_resource_group.hub.name
   address_space       = ["10.0.0.0/16"]
   #dns_servers         = ["10.0.0.4", "10.0.0.5"]
-
-  subnet {
-    name           = "subnet2"
-    address_prefix = "10.0.2.0/24"
-  }
 
   tags = local.tags
 }
@@ -30,9 +25,16 @@ resource "azurerm_subnet" "hub_gateway" {
   virtual_network_name = azurerm_virtual_network.hub.name
   address_prefixes     = ["10.0.1.0/24"]
 }
+
+resource "azurerm_subnet" "hub_endpoints" {
+  name                 = "HubEndpoints"
+  resource_group_name  = azurerm_resource_group.hub.name
+  virtual_network_name = azurerm_virtual_network.hub.name
+  address_prefixes     = ["10.0.3.0/24"]
+}
 /*
 resource "azurerm_public_ip" "hub" {
-  name                = "${var.rg_prefix}-hub-ip"
+  name                = "${var.prefix}-hub-ip"
   location            = azurerm_resource_group.hub.location
   resource_group_name = azurerm_resource_group.hub.name
 
@@ -70,13 +72,13 @@ resource "azurerm_virtual_network_gateway_connection" "hub_to_onprem" {
 
 #"On-Prem" Vnet
 resource "azurerm_resource_group" "onprem" {
-  name     = "${var.rg_prefix}-vnet-on-prem"
+  name     = "${var.prefix}-vnet-on-prem"
   location = "eastus2"
   tags     = local.tags
 }
 
 resource "azurerm_virtual_network" "onprem" {
-  name                = "${var.rg_prefix}-vnet-onprem"
+  name                = "${var.prefix}-vnet-onprem"
   location            = azurerm_resource_group.onprem.location
   resource_group_name = azurerm_resource_group.onprem.name
   address_space       = ["10.1.0.0/16"]
@@ -107,7 +109,7 @@ resource "azurerm_subnet" "onprem_VM" {
 }
 /*
 resource "azurerm_public_ip" "onprem" {
-  name                = "${var.rg_prefix}-onprem-ip"
+  name                = "${var.prefix}-onprem-ip"
   location            = azurerm_resource_group.onprem.location
   resource_group_name = azurerm_resource_group.onprem.name
 

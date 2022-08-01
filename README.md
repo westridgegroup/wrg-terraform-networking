@@ -11,9 +11,9 @@ Creates two VNETS connected via a VPN
     - Connection (OnPrem to Hub)
     - Public IP for Virtual Network Gateway 
     - ToDo: Azure Firewall for DNS
-    - ToDo: Blob Storage
-    - ToDo: Private End Point
-    - ToDo: Private DNS (for private end point)
+    - Blob Storage
+    - Private End Point
+    - Private DNS (for private end point)
 - Hub Resource Group
     - Hub VNET
         - GatewaySubnet

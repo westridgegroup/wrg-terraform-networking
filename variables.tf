@@ -1,7 +1,7 @@
 variable "prefix" {
   type        = string
   description = "The prefix which should be used for all resources in this module"
-  default     = "debian"
+  default     = "secnetwrk"
 }
 
 variable "machine_number" {
@@ -32,12 +32,6 @@ variable "password" {
 }
 
 # Standard Tags
-variable "rg_prefix" {
-  default     = ""
-  description = "The generic prefix for resoruces in this project"
-  type        = string
-}
-
 variable "tags" {
   default = {
     project = "example"

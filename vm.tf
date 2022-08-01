@@ -1,5 +1,5 @@
 /*
-module "vm_linux_headless" {
+module "wrg_vm_linux_headless" {
     source = "./module/vm-linux-headless"
     subnet_id = azurerm_subnet.onprem_VM.id
     tags = local.tags

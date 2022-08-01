@@ -1,17 +1,17 @@
 variable "prefix" {
   type        = string
   description = "The prefix which should be used for all resources in this module"
-  default     = "stg"
+  default     = "frw"
 }
 
 variable "network_id" {
   type        = string
-  description = "The virtual network for the storage account"
+  description = "The virtual network for the firewall"
 }
 
 variable "subnet_id" {
   type        = string
-  description = "The Subnet the storage is added to"
+  description = "The Subnet the firewall is added to"
 }
 
 variable "tags" {
