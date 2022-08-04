@@ -1,8 +1,9 @@
+
 module "wrg_firewall" {
-  source     = "./module/firewall"
-  network_id = azurerm_virtual_network.hub.id
-  subnet_id  = azurerm_subnet.hub_endpoints.id
-  tags       = local.tags
-  location   = var.location
-  prefix     = "${var.prefix}stg"
+  source              = "./module/firewall"
+  subnet_id           = azurerm_subnet.hub_firewall_subnet.id
+  tags                = local.tags
+  location            = var.location
+  prefix              = "${var.prefix}stg"
+  resource_group_name = azurerm_resource_group.hub.name
 }

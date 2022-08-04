@@ -132,7 +132,7 @@ resource "azurerm_linux_virtual_machine" "main" {
   name                = "${var.prefix}-${var.machine_number}-ws"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
-  size                = "Standard_B1s"
+  size                = "Standard_B2s"
   admin_username      = var.username
   #admin_password                  = var.password
   #disable_password_authentication = false
@@ -143,7 +143,7 @@ resource "azurerm_linux_virtual_machine" "main" {
     storage_account_uri = null
   }
 
-  custom_data = base64encode(file("cloud-init-debian-11.sh"))
+  custom_data = base64encode(file("${path.module}/scripts/${var.init_file}"))
 
   admin_ssh_key {
     username   = "adminuser"
@@ -155,7 +155,8 @@ resource "azurerm_linux_virtual_machine" "main" {
     publisher = "Debian"
     offer     = "debian-11"
     sku       = "11"
-    version   = "0.20210814.734"
+    version   = "0.20220711.1073"
+   # version   = "0.20210814.734"
   }
 
   os_disk {

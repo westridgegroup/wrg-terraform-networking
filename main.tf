@@ -2,6 +2,33 @@ locals {
   tags = merge(var.tags, var.env_tags)
 }
 
+
+# Unconnected vnet
+resource "azurerm_resource_group" "unconnected" {
+  name     = "${var.prefix}-unconnected-hub"
+  location = "eastus2"
+  tags     = local.tags
+}
+
+resource "azurerm_virtual_network" "unconnected" {
+  name                = "${var.prefix}-vnet-unconnected"
+  location            = azurerm_resource_group.unconnected.location
+  resource_group_name = azurerm_resource_group.unconnected.name
+  address_space       = ["10.0.0.0/16"]
+  #dns_servers         = ["10.0.0.4", "10.0.0.5"]
+
+  tags = local.tags
+}
+
+resource "azurerm_subnet" "unconnected_endpoints" {
+  name                 = "UnconnectedEndpoints"
+  resource_group_name  = azurerm_resource_group.unconnected.name
+  virtual_network_name = azurerm_virtual_network.unconnected.name
+  address_prefixes     = ["10.0.3.0/24"]
+}
+
+
+
 # Hub vnet
 resource "azurerm_resource_group" "hub" {
   name     = "${var.prefix}-vnet-hub"
@@ -40,7 +67,22 @@ resource "azurerm_subnet" "hub_firewall_subnet" {
   address_prefixes     = ["10.0.4.0/24"]
 }
 
-/*
+resource "azurerm_subnet" "hub_dns_subnet" {
+  name                 = "DNSSubnet"
+  resource_group_name  = azurerm_resource_group.hub.name
+  virtual_network_name = azurerm_virtual_network.hub.name
+  address_prefixes     = ["10.0.5.0/24"]
+}
+
+resource "azurerm_subnet" "hub_VM" {
+  name                 = "onprem-vm"
+  resource_group_name  = azurerm_resource_group.hub.name
+  virtual_network_name = azurerm_virtual_network.hub.name
+  address_prefixes     = ["10.0.6.0/24"]
+}
+
+
+
 resource "azurerm_public_ip" "hub" {
   name                = "${var.prefix}-hub-ip"
   location            = azurerm_resource_group.hub.location
@@ -76,7 +118,7 @@ resource "azurerm_virtual_network_gateway_connection" "hub_to_onprem" {
 
   shared_key = "4-v3ry-53cr37-1p53c-5h4r3d-k3y"
 }
-*/
+
 
 #"On-Prem" Vnet
 resource "azurerm_resource_group" "onprem" {
@@ -115,7 +157,7 @@ resource "azurerm_subnet" "onprem_VM" {
   virtual_network_name = azurerm_virtual_network.onprem.name
   address_prefixes     = ["10.1.3.0/24"]
 }
-/*
+
 resource "azurerm_public_ip" "onprem" {
   name                = "${var.prefix}-onprem-ip"
   location            = azurerm_resource_group.onprem.location
@@ -151,4 +193,3 @@ resource "azurerm_virtual_network_gateway_connection" "onprem_to_hub" {
 
   shared_key = "4-v3ry-53cr37-1p53c-5h4r3d-k3y"
 }
-*/

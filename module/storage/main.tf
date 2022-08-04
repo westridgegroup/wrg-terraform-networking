@@ -9,7 +9,7 @@ resource "azurerm_resource_group" "main" {
 }
 
 resource "azurerm_storage_account" "hub" {
-  name                = "${var.prefix}accountname"
+  name                = "${var.prefix}stg"
   resource_group_name = azurerm_resource_group.main.name
 
   location                          = azurerm_resource_group.main.location
@@ -49,7 +49,7 @@ resource "azurerm_private_endpoint" "hub" {
 }
 
 resource "azurerm_private_dns_a_record" "dns_a" {
-  name                = "arecord"
+  name                = azurerm_storage_account.hub.name
   zone_name           = azurerm_private_dns_zone.hub.name
   resource_group_name = azurerm_resource_group.main.name
   ttl                 = 300

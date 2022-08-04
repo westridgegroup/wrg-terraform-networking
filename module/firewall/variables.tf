@@ -4,16 +4,16 @@ variable "prefix" {
   default     = "frw"
 }
 
-variable "network_id" {
-  type        = string
-  description = "The virtual network for the firewall"
-}
-
 variable "subnet_id" {
   type        = string
   description = "The Subnet the firewall is added to"
 }
 
+variable "resource_group_name" {
+    type = string
+    description = "resource group name for the IP and firewall as they need to exist in the same resoruce group as the vnet"
+
+}
 variable "tags" {
   type        = map(any)
   description = "Tags to be added to the resources"

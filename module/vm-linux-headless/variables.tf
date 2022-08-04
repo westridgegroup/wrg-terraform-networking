@@ -20,6 +20,12 @@ variable "location" {
   default     = "eastus2"
 }
 
+variable "init_file" {
+  type = string
+  description = "The name of the cloud init file we want to use"
+  default = "cloud-init-debian-11-A.sh"
+}
+
 variable "username" {
   type    = string
   default = "adminuser"
