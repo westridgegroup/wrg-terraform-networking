@@ -1,4 +1,4 @@
-
+/*
 module "wrg_firewall" {
   source              = "./module/firewall"
   subnet_id           = azurerm_subnet.hub_firewall_subnet.id
@@ -7,3 +7,4 @@ module "wrg_firewall" {
   prefix              = "${var.prefix}stg"
   resource_group_name = azurerm_resource_group.hub.name
 }
+*/
