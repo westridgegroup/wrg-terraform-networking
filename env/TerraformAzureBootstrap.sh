@@ -14,10 +14,10 @@
 #        - ARM_TENANT_ID																									#
 #        - ARM_ACCESS_KEY																									#
 #																															#
-#VERSION 1.1.0																												#
+#VERSION 1.1.1																												#
 #																															#
 #EXAMPLE																													#
-#    source ./LoadAzureTerraformSecretsToEnvVars.sh																			#
+#    source env/TerraformAzureBootstrap.sh -f env/dev.tfvars																#
 #                                                                             												#	
 #    Loads Azure Key Vault secrets into Terraform environment variables for the current bash session						#
 #																															#

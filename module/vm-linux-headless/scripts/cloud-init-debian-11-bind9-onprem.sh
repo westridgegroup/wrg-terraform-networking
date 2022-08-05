@@ -31,5 +31,11 @@ sudo sed -i "15i    forwarders {" /etc/bind/named.conf.options
 sudo sed -i "16i        8.8.8.8;" /etc/bind/named.conf.options
 sudo sed -i "17i    };" /etc/bind/named.conf.options
 
+
+sudo sed -i "$ a zone \"blob.core.windows.net\" {" /etc/bind/named.conf
+sudo sed -i "$ a    type forward;" /etc/bind/named.conf
+sudo sed -i "$ a    forwarders { 10.0.5.4 };" /etc/bind/named.conf
+sudo sed -i "$ a };" /etc/bind/named.conf
+
 sudo systemctl restart bind9
 

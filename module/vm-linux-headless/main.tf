@@ -8,6 +8,7 @@ data "azurerm_client_config" "current" {}
 locals {
   main_tags        = var.tags
   allowed_list_ips = split(",", coalesce(var.allowed_list_ips, chomp(data.http.icanhazip.body)))
+  prefix = "${var.prefix}-${var.machine_number}"
 }
 
 
@@ -76,13 +77,13 @@ resource "random_string" "suffix" {
 }
 
 resource "azurerm_resource_group" "main" {
-  name     = "${var.prefix}-${var.machine_number}-rg"
+  name     = "${local.prefix}-rg"
   location = var.location
   tags     = local.main_tags
 }
 
 resource "azurerm_public_ip" "pip" {
-  name                = "${var.prefix}-pip"
+  name                = "${local.prefix}-pip"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   allocation_method   = "Dynamic"
@@ -91,7 +92,7 @@ resource "azurerm_public_ip" "pip" {
 }
 
 resource "azurerm_network_interface" "main" {
-  name                = "${var.prefix}-nic1"
+  name                = "${local.prefix}-nic1"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
 
@@ -105,7 +106,7 @@ resource "azurerm_network_interface" "main" {
 }
 
 resource "azurerm_network_security_group" "access" {
-  name                = "${var.prefix}-workstation-access"
+  name                = "${local.prefix}-workstation-access"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
   security_rule {
@@ -129,7 +130,7 @@ resource "azurerm_subnet_network_security_group_association" "main" {
 }
 
 resource "azurerm_linux_virtual_machine" "main" {
-  name                = "${var.prefix}-${var.machine_number}-ws"
+  name                = "${local.prefix}-ws"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   size                = "Standard_B2s"
