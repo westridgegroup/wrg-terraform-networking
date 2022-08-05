@@ -45,7 +45,13 @@ resource "azurerm_virtual_network" "hub" {
 
   tags = local.tags
 }
-
+/*
+#Needs to be made dynamic 
+resource "azurerm_virtual_network_dns_servers" "hub" {
+  virtual_network_id = azurerm_virtual_network.hub.id
+  dns_servers        = ["10.0.5.4"]
+}
+*/
 resource "azurerm_subnet" "hub_gateway" {
   name                 = "GatewaySubnet"
   resource_group_name  = azurerm_resource_group.hub.name
