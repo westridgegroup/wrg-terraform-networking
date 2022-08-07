@@ -2,6 +2,8 @@
 
 This project is an attempt to understand how to use On-premises workloads using a DNS forwarder for Azure resources.  Currently it does not allow for the on-prem network to talk to the storage account that has a private link in the "unconnected" vnet, even through the public endpoint for that storage account.
 
+#![On-premises workloads using a DNS forwarder](AzurePrivateDNS.png)
+
 ## Resources Created
 - OnPrem Resource Group
     - OnPrem VNET
@@ -28,9 +30,14 @@ This project is an attempt to understand how to use On-premises workloads using 
     - Linux DNS Server
     - NSG for Linux DNS Server
 
-## Execution
-#![On-premises workloads using a DNS forwarder](AzurePrivateDNS.png)
+## Requirements
+- Terraform
+- az cli
+- bash
+- Azure Subscriptions
+- Expects setup; spn, keyvault, storage account based on env/ConfigureAzureForSecureTerraformAccess.sh
 
+## How to run
 ```
 source env/TerraformAzureBootstrap.sh -f env/dev.tfvars
 terraform apply -var-file env/dev.tfvars
