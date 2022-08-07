@@ -1,6 +1,6 @@
 # WRG-TERRAFORM-NETWORK
 
-Creates two VNETS connected via a VPN
+This project is an attempt to understand how to use On-premises workloads using a DNS forwarder for Azure resources.  Currently it does not allow for the on-prem network to talk to the storage account that has a private link in the "unconnected" vnet, even through the public endpoint for that storage account.
 
 ## Resources Created
 - OnPrem Resource Group
@@ -25,11 +25,11 @@ Creates two VNETS connected via a VPN
     - Linux VM in Secondary Subnet
     - Public IP for Linux VM
     - NSG for Linux VM
-    - ToDo: Linux DNS Server
-    - ToDO NSG for Linux DNS Server
+    - Linux DNS Server
+    - NSG for Linux DNS Server
 
 ## Execution
-#![Simple Test Resoruce Groups](../rg.png)
+#![On-premises workloads using a DNS forwarder](AzurePrivateDNS.png)
 
 ```
 source env/TerraformAzureBootstrap.sh -f env/dev.tfvars
