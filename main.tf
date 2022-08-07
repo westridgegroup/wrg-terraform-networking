@@ -44,6 +44,11 @@ resource "azurerm_virtual_network" "hub" {
   #dns_servers         = ["10.0.0.4", "10.0.0.5"]
 
   tags = local.tags
+
+  depends_on = [
+    module.wrg_vm_linux_headless_onprem.onprem_ip
+  ]
+
 }
 /*
 #Needs to be made dynamic 
